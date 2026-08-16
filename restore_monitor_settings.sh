@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+kscreen-doctor output.DP-3.enable output.DP-2.enable output.DP-3.mode.3840x2160@240 output.DP-3.primary output.DP-3.position.0,0 output.DP-3.scale.1.80 output.DP-3.maxBrightnessOverride.1000 output.DP-3.sdr-brightness.203 output.DP-3.hdr.disable output.DP-3.wcg.disable output.DP-3.rgbrange.automatic output.DP-3.colorPowerTradeoff.preferEfficiency output.DP-3.vrrpolicy.automatic output.DP-2.position.2134,0 output.DP-2.sdr-brightness.203 output.DP-2.hdr.disable output.DP-2.wcg.disable output.DP-2.maxBrightnessOverride.1150 output.DP-2.colorPowerTradeoff.preferEfficiency output.DP-2.mode.2560x1440@144 output.DP-2.scale.1.20

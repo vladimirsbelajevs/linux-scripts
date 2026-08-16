@@ -7,6 +7,28 @@ A collection of Linux desktop, gaming, display, development, and system-maintena
 
 ## Scripts
 
+### `cleanup-cache.sh`
+
+Interactively lists immediate entries in `${XDG_CACHE_HOME:-$HOME/.cache}`,
+largest first, and permanently removes selected entries by number. Run it as
+your normal user:
+
+```bash
+./cleanup-cache.sh
+```
+
+Enter comma-separated numbers such as `1,3,5`, review the selected entries and
+total size, and type `yes` to confirm. Pass a different cache directory when
+needed:
+
+```bash
+./cleanup-cache.sh ~/.npm
+```
+
+Use `--help` to display usage information. The script refuses to run with
+`sudo`, rejects unsafe cache roots, and validates every selected path before
+deletion. It requires GNU `du`, `find`, `numfmt`, `realpath`, and `sort`.
+
 ### `convert_tif_to_png.sh`
 
 Converts every `.tif` and `.tiff` file in the current directory to an 8-bit sRGB PNG using ImageMagick. The script prompts whether to preserve the alpha channel.

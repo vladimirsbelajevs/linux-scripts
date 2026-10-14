@@ -1,16 +1,23 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
-# ===== CONFIG =====
-UNITY_PATH="/home/vladimirs/Unity/Hub/Editor/6000.3.9f1/Editor/Unity"
-SCALE="2"          # 1, 1.5, 2 etc
-DPI_SCALE="0.5"      # usually keep at 1 for sharp text
+# Allow per-launch overrides while retaining the scaling fix by default.
+export GDK_SCALE="${GDK_SCALE:-2}"
+export GDK_DPI_SCALE="${GDK_DPI_SCALE:-0.5}"
 
-# ===== ENVIRONMENT =====
-export GDK_SCALE="$SCALE"
-export GDK_DPI_SCALE="$DPI_SCALE"
-
-# Uncomment this if Wayland causes issues
+# Uncomment this if Wayland causes issues.
 # export GDK_BACKEND=x11
 
-# ===== LAUNCH =====
-exec "$UNITY_PATH" -force-vulkan "$@"
+UNITY_CLI="${UNITY_CLI:-$(command -v unity || true)}"
+if [[ -z "$UNITY_CLI" ]]; then
+    printf 'Error: Unity CLI was not found on PATH.\n' >&2
+    exit 127
+fi
+
+# Match `unity open`: with no project argument, open the current directory.
+if (( $# == 0 )); then
+    set -- .
+fi
+
+# UNITY_EDITOR_ARGS can override the default Editor arguments when necessary.
+exec "$UNITY_CLI" open "$@" --args "${UNITY_EDITOR_ARGS:--force-vulkan}"

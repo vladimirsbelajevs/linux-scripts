@@ -151,13 +151,27 @@ The selected settings and launch command are recorded in the system journal with
 
 ### `launch_unity.sh`
 
-Launches a specific Unity Editor installation with Vulkan and custom GTK scaling. Extra command-line arguments are passed directly to Unity.
+Opens a project through Unity CLI with Vulkan and custom GTK scaling. Unity CLI selects the Editor version required by the project, so the script does not contain a hard-coded Editor path.
 
 ```bash
-./launch_unity.sh [Unity arguments...]
+# Open the Unity project in the current directory
+cd /path/to/MyProject
+/home/vladimirs/Scripts/launch_unity.sh
+
+# Equivalent explicit form
+/home/vladimirs/Scripts/launch_unity.sh .
+
+# Open another project or pass `unity open` options
+/home/vladimirs/Scripts/launch_unity.sh /path/to/MyProject --editor-version 6000.5.8f1
 ```
 
-The script currently points to Unity `6000.3.9f1` under `/home/vladimirs/Unity`. Update `UNITY_PATH`, `SCALE`, and `DPI_SCALE` as needed.
+The defaults are `GDK_SCALE=2`, `GDK_DPI_SCALE=0.5`, and the Editor argument `-force-vulkan`. Override them per launch when needed:
+
+```bash
+GDK_SCALE=1 GDK_DPI_SCALE=1 UNITY_EDITOR_ARGS="-force-glcore" ./launch_unity.sh .
+```
+
+Set `UNITY_CLI` only if the `unity` executable is not on `PATH` or a specific CLI binary should be used.
 
 ### `dotnet-install.sh`
 
